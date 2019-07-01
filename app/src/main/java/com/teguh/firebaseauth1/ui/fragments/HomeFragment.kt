@@ -1,4 +1,4 @@
-package com.teguh.firebaseauth1.ui
+package com.teguh.firebaseauth1.ui.fragments
 
 
 import android.os.Bundle

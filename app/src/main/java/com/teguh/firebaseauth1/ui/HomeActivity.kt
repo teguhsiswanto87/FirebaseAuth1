@@ -18,7 +18,7 @@ class HomeActivity : AppCompatActivity() {
 
         val navController = Navigation.findNavController(this, R.id.fragment)
         NavigationUI.setupWithNavController(nav_view, navController)
-        //when fragment change, title of action bar change too
+        //when fragment change, title of action bar(toolbar) also change
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout)
 
     }
@@ -28,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(
             Navigation.findNavController(this, R.id.fragment), drawer_layout
         )
+    }//we need Fragment to display this, so you must create FragmentLayout Home and Profile
 
-    }
-
+    //option menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
         return true
