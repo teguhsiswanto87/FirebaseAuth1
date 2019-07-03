@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.google.firebase.auth.FirebaseAuth
 import com.teguh.firebaseauth1.R
+import com.teguh.firebaseauth1.uitls.logout
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -45,6 +46,7 @@ class HomeActivity : AppCompatActivity() {
             AlertDialog.Builder(this).apply {
                 setTitle("Logout")
                 setMessage("Are you sure to logout from this account ?")
+                setIcon(R.drawable.ic_warning)
                 setPositiveButton("Yes") { _, _ ->
                     FirebaseAuth.getInstance().signOut()
                     logout() //this fun only intent from home activity to Login Activity

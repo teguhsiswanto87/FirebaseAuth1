@@ -1,8 +1,10 @@
-package com.teguh.firebaseauth1.ui
+package com.teguh.firebaseauth1.uitls
 
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import com.teguh.firebaseauth1.ui.HomeActivity
+import com.teguh.firebaseauth1.ui.LoginActivity
 
 fun Context.toast(message: String) =
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

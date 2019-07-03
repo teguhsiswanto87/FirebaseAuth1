@@ -11,13 +11,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 
 import com.teguh.firebaseauth1.R
-import com.teguh.firebaseauth1.ui.toast
+import com.teguh.firebaseauth1.uitls.toast
 import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayOutputStream
 
@@ -122,10 +123,15 @@ class ProfileFragment : Fragment() {
             currentUser?.sendEmailVerification()?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     context?.toast("Email Verification sent")
-                }else{
+                } else {
                     context?.toast(it.exception?.message!!)
                 }
             }
+        }
+
+        txt_profile_phone.setOnClickListener {
+            val action = ProfileFragmentDirections.actionVerifyPhone()
+            Navigation.findNavController(it).navigate(action)
         }
 
     }

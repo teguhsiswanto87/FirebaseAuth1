@@ -7,6 +7,8 @@ import android.util.Patterns
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.teguh.firebaseauth1.R
+import com.teguh.firebaseauth1.uitls.login
+import com.teguh.firebaseauth1.uitls.toast
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
