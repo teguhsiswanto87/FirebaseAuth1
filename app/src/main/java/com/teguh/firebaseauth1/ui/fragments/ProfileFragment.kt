@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 
 import com.teguh.firebaseauth1.R
@@ -30,9 +32,15 @@ private const val ARG_PARAM2 = "param2"
  */
 class ProfileFragment : Fragment() {
 
+    //default image when user not upload image
+    private val DEFAULT_IMAGE_URL = "https://www.aflac.com/_Global-Assets/dagger/home/img/icon_life.png"
+
     private lateinit var imageUri: Uri
 
     private val REQUEST_IMAGE_CAPTURE = 100
+
+    //current login and user from firebase authentification
+    private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +53,77 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        currentUser?.let { user ->
+            Glide.with(this)
+                .load(user.photoUrl)
+                .into(img_profile)
+
+            edt_profile_name.setText(user.displayName)
+            txt_profile_email.text = user.email
+            //to display email is verify or not
+            if (user.isEmailVerified) {
+                txt_profile_not_verified.visibility = View.INVISIBLE
+            } else {
+                txt_profile_not_verified.visibility = View.VISIBLE
+            }
+
+            //set phone number, but sebelumnya belum upload phone number, jadi cek apakah phone number ada atau tidak
+            txt_profile_phone.text = if (user.phoneNumber.isNullOrEmpty()) "Add Number" else user.phoneNumber
+
+
+        }
+
         img_profile.setOnClickListener {
             takePictureIntent()
+        }
+
+        btn_profile_save.setOnClickListener {
+            //check the photo (uploaded by the user or not)
+            val photo = when {
+                ::imageUri.isInitialized -> imageUri
+                currentUser?.photoUrl == null -> Uri.parse(DEFAULT_IMAGE_URL)
+                else -> currentUser?.photoUrl
+            }
+
+            //display name on the editText
+            val name = edt_profile_name.text.toString().trim()
+
+            //add validation to username
+            if (name.isEmpty()) {
+                edt_profile_name.error = "name required"
+                edt_profile_name.requestFocus()
+                return@setOnClickListener
+            }
+
+            //when everythis is fine, now to update & create user profile change request
+            val updates = UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .setPhotoUri(photo)
+                .build()
+
+            // show progress updating
+            progressbar.visibility = View.VISIBLE
+            //update profile
+            currentUser?.updateProfile(updates)?.addOnCompleteListener { task ->
+                progressbar.visibility = View.INVISIBLE
+                if (task.isSuccessful) {
+                    context?.toast("Profile Updated")
+                } else {
+                    context?.toast(task.exception?.message!!)
+                }
+            }
+
+        }
+
+        txt_profile_not_verified.setOnClickListener {
+            //send verification to teh user
+            currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    context?.toast("Email Verification sent")
+                }else{
+                    context?.toast(it.exception?.message!!)
+                }
+            }
         }
 
     }
@@ -94,7 +171,7 @@ class ProfileFragment : Fragment() {
                         img_profile.setImageBitmap(imageBitmap)
                     }
                 }
-            }else{
+            } else {
                 uploadTask.exception?.let {
                     activity?.toast(it.message!!)
                 }
