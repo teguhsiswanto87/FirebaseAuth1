@@ -63,6 +63,7 @@ class ProfileFragment : Fragment() {
             //to display email is verify or not
             if (user.isEmailVerified) {
                 txt_profile_not_verified.visibility = View.INVISIBLE
+                txt_profile_verified.visibility = View.VISIBLE
             } else {
                 txt_profile_not_verified.visibility = View.VISIBLE
             }
@@ -116,7 +117,8 @@ class ProfileFragment : Fragment() {
         }
 
         txt_profile_not_verified.setOnClickListener {
-            //send verification to teh user
+            //send verification to teh user. When is done, next check on your inbox
+            //To see change label of email verification, logout first then login again, so you must to create fun logout
             currentUser?.sendEmailVerification()?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     context?.toast("Email Verification sent")

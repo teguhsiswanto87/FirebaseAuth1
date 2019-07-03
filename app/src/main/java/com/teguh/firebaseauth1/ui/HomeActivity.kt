@@ -3,8 +3,11 @@ package com.teguh.firebaseauth1.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.google.firebase.auth.FirebaseAuth
 import com.teguh.firebaseauth1.R
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -35,4 +38,26 @@ class HomeActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.option_menu, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == R.id.action_logout) {
+            AlertDialog.Builder(this).apply {
+                setTitle("Logout")
+                setMessage("Are you sure to logout from this account ?")
+                setPositiveButton("Yes") { _, _ ->
+                    FirebaseAuth.getInstance().signOut()
+                    logout() //this fun only intent from home activity to Login Activity
+                }
+                setNegativeButton("Cancel") { _, _ ->
+
+                }
+            }.create().show()
+        } else {
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
 }
