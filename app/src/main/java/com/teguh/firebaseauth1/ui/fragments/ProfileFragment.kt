@@ -139,6 +139,11 @@ class ProfileFragment : Fragment() {
             Navigation.findNavController(it).navigate(action)
         }
 
+        txt_profile_password.setOnClickListener {view ->
+            val action = ProfileFragmentDirections.actionUpdatePassword()
+            Navigation.findNavController(view).navigate(action)
+        }
+
     }
 
     // to take picture by camera

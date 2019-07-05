@@ -100,7 +100,7 @@
                 tools:text="+917549161079" />
 
             <TextView
-                android:id="@+id/text_password"
+                android:id="@+id/txt_profile_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"

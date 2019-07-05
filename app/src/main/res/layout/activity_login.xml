@@ -81,7 +81,7 @@
 
 
                 <TextView
-                        android:id="@+id/text_view_forget_password"
+                        android:id="@+id/txt_login_forget_password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"

@@ -41,7 +41,7 @@ class UpdateEmailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         layoutUpdateEmail.visibility = View.GONE
-        layoutPassword.visibility = View.VISIBLE
+        layoutEmail.visibility = View.VISIBLE
 
         btn_updateemail_authenticate.setOnClickListener {
 
@@ -68,7 +68,7 @@ class UpdateEmailFragment : Fragment() {
                         progressbar.visibility = View.GONE
                         when {
                             task.isSuccessful -> {
-                                layoutPassword.visibility = View.GONE
+                                layoutEmail.visibility = View.GONE
                                 layoutUpdateEmail.visibility = View.VISIBLE
                             }
                             task.exception is FirebaseAuthInvalidCredentialsException -> {//if invalid credential
