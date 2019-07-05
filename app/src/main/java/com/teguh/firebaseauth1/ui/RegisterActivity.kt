@@ -23,24 +23,24 @@ class RegisterActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
 
         button_register.setOnClickListener {
-            val email = edit_text_email.text.toString().trim()
-            val password = edit_text_password.text.toString().trim()
+            val email = edt_updateemail_email.text.toString().trim()
+            val password = edt_updateemail_password.text.toString().trim()
 
             if (email.isEmpty()) {
-                edit_text_email.error = "Email Required"
-                edit_text_email.requestFocus()
+                edt_updateemail_email.error = "Email Required"
+                edt_updateemail_email.requestFocus()
                 return@setOnClickListener
             }
 
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                edit_text_email.error = "Invalid Email Address"
-                edit_text_email.requestFocus()
+                edt_updateemail_email.error = "Invalid Email Address"
+                edt_updateemail_email.requestFocus()
                 return@setOnClickListener
             }
 
             if (password.isEmpty() || password.length < 6) {
-                edit_text_password.error = "6 Char Password Required"
-                edit_text_password.requestFocus()
+                edt_updateemail_password.error = "6 Char Password Required"
+                edt_updateemail_password.requestFocus()
                 return@setOnClickListener
             }
 

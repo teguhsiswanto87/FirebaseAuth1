@@ -18,6 +18,9 @@
         <action
             android:id="@+id/actionVerifyPhone"
             app:destination="@id/verifyPhoneFragment" />
+        <action
+            android:id="@+id/actionUpdateEmail"
+            app:destination="@id/updateEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/verifyPhoneFragment"
@@ -26,6 +29,15 @@
         tools:layout="@layout/fragment_verify_phone">
         <action
             android:id="@+id/actionPhoneVerified"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateEmailFragment"
+        android:name="com.teguh.firebaseauth1.ui.fragments.UpdateEmailFragment"
+        android:label="UpdateEmail"
+        tools:layout="@layout/fragment_update_email" >
+        <action
+            android:id="@+id/actionEmailUpdated"
             app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

@@ -129,6 +129,11 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        txt_profile_email.setOnClickListener {
+            val action = ProfileFragmentDirections.actionUpdateEmail()
+            Navigation.findNavController(it).navigate(action)
+        }
+
         txt_profile_phone.setOnClickListener {
             val action = ProfileFragmentDirections.actionVerifyPhone()
             Navigation.findNavController(it).navigate(action)

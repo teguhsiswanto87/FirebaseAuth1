@@ -45,14 +45,14 @@
 
 
                 <TextView
-                        android:labelFor="@id/edit_text_email"
+                        android:labelFor="@id/edt_updateemail_email"
                         android:text="email"
                         android:fontFamily="sans-serif-light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                 <EditText
-                        android:id="@+id/edit_text_email"
+                        android:id="@+id/edt_updateemail_email"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:drawableLeft="@drawable/ic_email"
@@ -63,7 +63,7 @@
                         android:inputType="textEmailAddress"/>
 
                 <TextView
-                        android:labelFor="@id/edit_text_password"
+                        android:labelFor="@id/edt_updateemail_password"
                         android:text="password"
                         android:fontFamily="sans-serif-light"
                         android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:id="@+id/edit_text_password"
+                        android:id="@+id/edt_updateemail_password"
                         android:drawableLeft="@drawable/ic_lock"
                         android:hint="Password"
                         android:inputType="textPassword"/>
