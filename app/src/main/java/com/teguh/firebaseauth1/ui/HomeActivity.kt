@@ -1,5 +1,6 @@
 package com.teguh.firebaseauth1.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -55,8 +56,8 @@ class HomeActivity : AppCompatActivity() {
 
                 }
             }.create().show()
-        } else {
-
+        } else if(item?.itemId == R.id.action_rate_this_app) {
+            startActivity(Intent(this@HomeActivity, RateThisAppActivity::class.java))
         }
 
         return super.onOptionsItemSelected(item)
