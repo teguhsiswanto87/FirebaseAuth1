@@ -2,10 +2,12 @@ package com.teguh.firebaseauth1.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.teguh.firebaseauth1.R
 import com.teguh.firebaseauth1.model.Rate
@@ -24,6 +26,7 @@ class RateAdapter(val nCtx: Context, val layoutResId: Int, val rateList: List<Ra
         //get textView
         val tvName = view.findViewById<TextView>(R.id.tv_rate_name);
         val tvUpdate = view.findViewById<TextView>(R.id.tv_rate_update);
+        val btnDelete = view.findViewById<Button>(R.id.btn_rate_delete)
 
         //get data rate
         val rate = rateList[position]
@@ -32,14 +35,43 @@ class RateAdapter(val nCtx: Context, val layoutResId: Int, val rateList: List<Ra
         tvUpdate.setOnClickListener {
             //create parameters to set value that existing when it click
             showUpdateDialog(rate)
-
         }
+        btnDelete.setOnClickListener {
+            deleteRate(rate)
+        }
+
 
         return view
 
     }
 
-    fun showUpdateDialog(rate: Rate) {
+    private fun deleteRate(rate: Rate) {
+
+
+        val builder = AlertDialog.Builder(nCtx)
+        builder.setTitle("Delete Rate")
+        builder.setMessage("Are you sure to delete rate Name=${rate.name} ?")
+        builder.setPositiveButton("Delete", object : DialogInterface.OnClickListener {
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                val dbRates = FirebaseDatabase.getInstance().getReference("rates")
+                //remove data
+                dbRates.child(rate.id.toString()).removeValue().addOnCompleteListener {
+                    nCtx.toast("Data ID=${rate.id} deleted")
+                }.addOnFailureListener {
+                    nCtx.toast("DELETE FAILED")
+                }
+            }
+
+        })
+
+        builder.setNegativeButton("Cancel") { _, _ -> }
+
+
+        val alert = builder.create()
+        alert.show()
+    }
+
+    private fun showUpdateDialog(rate: Rate) {
         val builder = AlertDialog.Builder(nCtx)
         builder.setTitle("Update Rate")
 
@@ -58,7 +90,8 @@ class RateAdapter(val nCtx: Context, val layoutResId: Int, val rateList: List<Ra
         //set this view to Builder
         builder.setView(view)
 
-        builder.setPositiveButton("Update") { dialog, which ->//use lamda
+        builder.setPositiveButton("Update") { _, _ ->
+            //use lamda
             //update the value
             val dbRate = FirebaseDatabase.getInstance().getReference("rates")
 

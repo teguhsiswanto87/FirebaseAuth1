@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tv_rate_name"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="28dp" />
@@ -19,5 +19,13 @@
         android:text="Update"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_rate_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="Delete"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
